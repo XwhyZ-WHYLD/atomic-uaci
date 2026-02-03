@@ -1,0 +1,20 @@
+# UACI Protocol Specification
+
+## Identifier Format
+
+
+| Field          | Size          | Description                                 |
+|----------------|---------------|---------------------------------------------|
+| Version        | 1 byte        | Protocol version (currently `0x01`)         |
+| Timestamp      | 48 bits       | UNIX ms since epoch                         |
+| Model Hash     | 160 bits      | SHA-1 fingerprint of model weights metadata |
+| Content Hash   | 256 bits      | SHA-256 of generated content                |
+| Checksum       | 32 bits       | CRC-32 over previous fields                 |
+
+## Encoding
+- Big-endian byte layout  
+- Base58Check encoding for human readability  
+
+## Registry API (optional)
+- `POST /register` ➔ returns new `uaci_id`  
+- `GET  /id/{uaci_id}` ➔ returns metadata record

@@ -1,0 +1,22 @@
+# UACI Framework™ Architecture
+
+## Overview
+A bird’s-eye view of how the five components interact to inject, track, and verify AI-generated content.
+
+## Components
+1. **UACI Protocol**  
+2. **StealthResist™ Watermarking**  
+3. **PAIR (Proof-of-Origin AI Router)**  
+4. **OpenVeri™ Toolkit**  
+5. **P3 Capsule**
+
+## Data Flow Diagram
+*(Insert diagram here, e.g. PNG exported from draw.io)*
+
+```mermaid
+flowchart LR
+    Model -->|Inference| PAIR
+    PAIR -->|Inject ID & Watermark| Output
+    Output --> OpenVeri
+    OpenVeri --> P3Capsule[“P3 Capsule”]
+    P3Capsule --> Client
