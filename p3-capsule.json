@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/XwhyZ-WHYLD/atomic-uaci/schemas/p3-capsule.json",
+  "title": "P3 Capsule",
+  "description": "Privacy-preserving encrypted provenance vault for UACI-bound AI-generated content",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "uaci_id",
+    "model_name",
+    "timestamp_utc",
+    "user_hash",
+    "intent_hash",
+    "hmac"
+  ],
+  "properties": {
+    "uaci_id": {
+      "type": "string",
+      "description": "Globally unique UACI identifier for this content asset",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "model_name": {
+      "type": "string",
+      "description": "Name and version of the AI model that generated the content",
+      "example": "gpt-4o"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp of content generation in ISO-8601 format"
+    },
+    "user_hash": {
+      "type": "string",
+      "description": "Salted SHA-256 hash of user identifier — original value never stored. Salt rotated every 30 days.",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "intent_hash": {
+      "type": "string",
+      "description": "Salted SHA-256 hash of generation intent or prompt — original value never stored. Salt rotated every 30 days.",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "hmac": {
+      "type": "string",
+      "description": "HMAC-SHA256 over the concatenated canonical fields — provides integrity verification without key exposure",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "modality": {
+      "type": "string",
+      "description": "Content modality",
+      "enum": ["text", "image", "audio", "video", "code"]
+    },
+    "upif_handshake": {
+      "type": "object",
+      "description": "Optional UPIF integration — records prompt governance chain for full-stack provenance",
+      "properties": {
+        "upif_id": {
+          "type": "string",
+          "description": "UPIF prompt identifier from the PAIR Router handshake"
+        },
+        "compliance_flags": {
+          "type": "object",
+          "description": "UPIF compliance screening outcomes",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "notes": {
+    "encryption": "The P3 Capsule is encrypted at rest using AES-GCM with a 96-bit nonce. Keys are managed via KMS with 90-day rotation.",
+    "gdpr_erasure": "Key destruction permanently prevents decryption — satisfying GDPR Art 17 right to erasure.",
+    "legal_hold": "Key escrow enables lawful decryption under subpoena without exposing the general KMS.",
+    "status": "Schema v1.0.0 — specification stage. Implementation pending."
+  }
+}
