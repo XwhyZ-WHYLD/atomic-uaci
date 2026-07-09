@@ -1,5 +1,5 @@
 # atomic-uaci
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21276642.svg)](https://doi.org/10.5281/zenodo.21276642)
 **Atomic-UACI: Inference-Time AI Content Provenance & Watermarking**
 
 > ⚠️ **Status: Specification Stage (v2.1)** — This repository contains the formal technical specification and whitepaper for the UACI Framework. Implementation is in active development. Benchmarks reflect design targets validated at specification stage.
